@@ -1,0 +1,45 @@
+:root {
+  /* Colores principales - Tema Graduación */
+  --gold-primary: #d4af37;
+  --gold-light: #f4e5c2;
+  --gold-dark: #b8941e;
+  --gold-metallic: #cfb53b;
+
+  --white-pure: #ffffff;
+  --white-soft: #fefefe;
+  --cream: #faf7f0;
+  --ivory: #fffff0;
+
+  --text-primary: #2c2c2c;
+  --text-secondary: #5a5a5a;
+  --text-light: #8b8b8b;
+
+  /* Colores admin - Minimalista */
+  --admin-bg: #f8f9fa;
+  --admin-sidebar: #2c3e50;
+  --admin-accent: #3498db;
+  --admin-border: #e1e8ed;
+
+  /* Sombras */
+  --shadow-sm: 0 2px 8px rgba(212, 175, 55, 0.1);
+  --shadow-md: 0 4px 16px rgba(212, 175, 55, 0.15);
+  --shadow-lg: 0 8px 32px rgba(212, 175, 55, 0.2);
+  --shadow-gold: 0 4px 20px rgba(212, 175, 55, 0.3);
+
+  /* Transiciones */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Fuentes */
+  --font-primary: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-elegant: "Playfair Display", Georgia, serif;
+
+  /* Espaciado */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+}

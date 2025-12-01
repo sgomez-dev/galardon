@@ -1,11 +1,17 @@
-import { createRouter, createWebHistory } from "vue-router";
-import InvitationView from "@/pages/InvitationView.vue";
+import { 
+  createRouter, 
+  createWebHistory, 
+  type RouteRecordRaw,
+  type NavigationGuardNext,
+  type RouteLocationNormalized
+} from "vue-router";
+import InvitationView from "@/pages/public/InvitationView.vue";
 import ConfirmedView from "@/pages/public/ConfirmedView.vue";
 import DashboardView from "@/pages/admin/DashboardView.vue";
 import GuestsView from "@/pages/admin/GuestsView.vue";
 import LoginView from "@/pages/admin/LoginView.vue";
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   { path: "/i/:slug", component: InvitationView },
   { path: "/i/:slug/ok", component: ConfirmedView },
   { path: "/admin/login", component: LoginView },
@@ -22,7 +28,11 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((
+  to: RouteLocationNormalized, 
+  _from: RouteLocationNormalized, 
+  next: NavigationGuardNext
+) => {
   const isAuthenticated = false;
   if (to.meta.requiresAuth && !isAuthenticated) next("/admin/login");
   else next();
