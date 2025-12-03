@@ -39,10 +39,12 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import Input from "@/components/ui/Input.vue";
 import Button from "@/components/ui/Button.vue";
 import { loginWithEmail } from "@/stores/auth.store";
 
+const router = useRouter();
 const email = ref("");
 const password = ref("");
 
@@ -50,6 +52,7 @@ const login = async () => {
   try {
     await loginWithEmail(email.value, password.value);
     alert("✅ Login exitoso");
+    router.push("/admin");
   } catch (e) {
     alert("❌ Error en login");
   }

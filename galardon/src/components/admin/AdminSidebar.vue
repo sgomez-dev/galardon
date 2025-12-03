@@ -23,15 +23,6 @@
         <span class="nav-icon">👥</span>
         <span class="nav-text">Invitados</span>
       </button>
-
-      <button
-        class="nav-item"
-        :class="{ active: isActive('/admin/stats') }"
-        @click="router.push('/admin/stats')"
-      >
-        <span class="nav-icon">📊</span>
-        <span class="nav-text">Estadísticas</span>
-      </button>
     </nav>
   </aside>
 </template>
