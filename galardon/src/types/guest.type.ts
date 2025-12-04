@@ -7,4 +7,5 @@ export interface Guest {
   maxCompinions: number;
   isCompanion: boolean;
   linkedTo?: string;
+  confirmedBy?: string;
 }

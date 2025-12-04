@@ -12,6 +12,9 @@
           :guest-id="guest.id"
           :guest-name="guest.name"
           :all-names="allNames"
+          :initial-is-going="guest.isGoing"
+          :initial-companions="guest.companions"
+          :confirmed-by="guest.confirmedBy"
         />
       </template>
     </div>
@@ -24,7 +27,7 @@ import { useRoute, useRouter } from "vue-router";
 import InvitationMessage from "@/components/invitations/InvitationMessage.vue";
 import ConfirmForm from "@/components/invitations/ConfirmForm.vue";
 import type { Guest } from "@/types/guest.type";
-import { getGuestBySlug } from "@/services/guests.service";
+import { getGuestBySlug, getAllGuests } from "@/services/guests.service";
 
 const route = useRoute();
 const router = useRouter();
@@ -42,7 +45,17 @@ onMounted(async () => {
       return;
     }
     guest.value = g;
-    allNames.value = [];
+
+    // Cargar todos los invitados para el autocompletado
+    const allGuests = await getAllGuests();
+    // Filtrar: excluir al invitado actual y personas que ya confirmaron
+    allNames.value = allGuests
+      .filter(
+        (otherGuest) =>
+          otherGuest.id !== g.id && // No incluir al invitado actual
+          otherGuest.isGoing === null // Solo incluir personas que NO han confirmado
+      )
+      .map((guest) => guest.name);
   } catch (error) {
     console.error(error);
     alert("❌ Error al cargar la invitación.");

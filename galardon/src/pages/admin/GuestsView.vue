@@ -11,7 +11,8 @@
     </div>
 
     <div class="page-content">
-      <GuestTable />
+      <RequestsList />
+      <GuestTable ref="guestTableRef" />
     </div>
 
     <Modal :show="showAddGuest" @close="showAddGuest = false">
@@ -68,15 +69,20 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from "vue";
 import GuestTable from "@/components/admin/GuestTable.vue";
+import RequestsList from "@/components/admin/RequestsList.vue";
 import Button from "@/components/ui/Button.vue";
 import Input from "@/components/ui/Input.vue";
 import Modal from "@/components/ui/Modal.vue";
 import { addGuest } from "@/services/guests.service";
 import type { Guest } from "@/types/guest.type";
+import { useToast } from "@/composables/useToast";
+
+const toast = useToast();
 
 const showAddGuest = ref(false);
 const generatedUrl = ref("");
 const urlInputRef = ref<HTMLInputElement | null>(null);
+const guestTableRef = ref<InstanceType<typeof GuestTable>>();
 
 const origin = computed(() => {
   if (typeof window !== "undefined") {
@@ -97,7 +103,7 @@ const form = reactive<{
 
 const createInvitation = async () => {
   if (!form.name || !form.slug) {
-    alert("⚠️ Por favor completa todos los campos obligatorios");
+    toast.warning("Por favor completa todos los campos obligatorios");
     return;
   }
 
@@ -113,6 +119,9 @@ const createInvitation = async () => {
 
     await addGuest(guestData);
 
+    // Recargar la tabla de invitados
+    await guestTableRef.value?.loadGuests();
+
     // Generar la URL
     generatedUrl.value = `${window.location.origin}/i/${form.slug}`;
 
@@ -120,8 +129,10 @@ const createInvitation = async () => {
     form.name = "";
     form.slug = "";
     form.maxCompinions = 0;
+
+    toast.success("¡Invitación creada exitosamente!");
   } catch (error) {
-    alert("❌ Error al crear la invitación");
+    toast.error("Error al crear la invitación");
     console.error(error);
   }
 };
@@ -130,7 +141,7 @@ const copyUrl = () => {
   if (urlInputRef.value) {
     urlInputRef.value.select();
     document.execCommand("copy");
-    alert("✅ URL copiada al portapapeles");
+    toast.success("URL copiada al portapapeles");
   }
 };
 </script>
