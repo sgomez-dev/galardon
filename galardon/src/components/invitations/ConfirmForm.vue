@@ -112,7 +112,6 @@ const alreadyConfirmed = props.initialIsGoing !== null;
 const isGoing = ref<boolean | null>(props.initialIsGoing);
 const companionList = ref<{ companions: Companion[]; newRequests: string[] }>();
 const isSubmitting = ref(false);
-const justConfirmed = ref(false);
 const hasNewRequests = ref(false);
 const newRequestsCount = ref(0);
 

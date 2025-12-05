@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import CompanionField from "./CompanionField.vue";
-import type { Companion } from "@/types/companion";
+import type { Companion } from "@/types/companion.type";
 
 interface Props {
   allNames: string[];
@@ -48,8 +48,8 @@ const companions = ref<Companion[]>([]);
 
 const newRequests = computed(() => {
   return companions.value
-    .filter((c) => c.name && !props.allNames.includes(c.name))
-    .map((c) => c.name);
+    .filter((c: Companion) => c.name && !props.allNames.includes(c.name))
+    .map((c: Companion) => c.name);
 });
 
 const isNewName = (name: string): boolean => {

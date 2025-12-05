@@ -30,7 +30,7 @@ interface Props {
   icon?: string;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   title: "Confirmar acción",
   confirmText: "Confirmar",
   cancelText: "Cancelar",

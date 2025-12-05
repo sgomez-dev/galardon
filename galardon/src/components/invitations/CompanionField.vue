@@ -17,9 +17,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from "vue";
+import { computed } from "vue";
 import Autocomplete from "@/components/ui/Autocomplete.vue";
-import type { Companion } from "@/types/companion";
+import type { Companion } from "@/types/companion.type";
 
 interface Props {
   companion: Companion;
