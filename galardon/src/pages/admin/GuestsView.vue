@@ -15,7 +15,7 @@
       <GuestTable ref="guestTableRef" />
     </div>
 
-    <Modal :show="showAddGuest" @close="showAddGuest = false">
+    <Modal :show="showAddGuest" @close="closeModal">
       <div class="modal-content">
         <h2 class="modal-title">Crear Nueva Invitación</h2>
         <form @submit.prevent="createInvitation" class="invitation-form">
@@ -33,11 +33,7 @@
           </div>
 
           <div class="form-actions">
-            <Button
-              type="button"
-              variant="secondary"
-              @click="showAddGuest = false"
-            >
+            <Button type="button" variant="secondary" @click="closeModal">
               Cancelar
             </Button>
             <Button type="submit" variant="primary"> Crear Invitación </Button>
@@ -143,6 +139,15 @@ const copyUrl = () => {
     document.execCommand("copy");
     toast.success("URL copiada al portapapeles");
   }
+};
+
+const closeModal = () => {
+  showAddGuest.value = false;
+  // Resetear el estado del formulario y la URL generada
+  form.name = "";
+  form.slug = "";
+  form.maxCompinions = 5;
+  generatedUrl.value = "";
 };
 </script>
 

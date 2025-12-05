@@ -15,6 +15,7 @@
           <th>Nombre</th>
           <th>Asistencia</th>
           <th>Acompañantes</th>
+          <th>Link</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -42,6 +43,15 @@
             <span class="companions-count">{{
               guest.companions?.length || 0
             }}</span>
+          </td>
+          <td class="guest-link">
+            <button
+              @click="copyInvitationLink(guest)"
+              class="copy-button"
+              title="Copiar link de invitación"
+            >
+              🔗 Copiar
+            </button>
           </td>
           <td class="guest-actions">
             <button
@@ -96,6 +106,17 @@ const confirmDelete = async () => {
     toast.error(`Error al eliminar la invitación: ${error.message}`);
   } finally {
     guestToDelete.value = null;
+  }
+};
+
+const copyInvitationLink = async (guest: Guest) => {
+  const url = `${window.location.origin}/i/${guest.slug}`;
+  try {
+    await navigator.clipboard.writeText(url);
+    toast.success(`Link copiado al portapapeles`);
+  } catch (error) {
+    console.error("Error al copiar:", error);
+    toast.error("No se pudo copiar el link");
   }
 };
 
@@ -199,6 +220,36 @@ defineExpose({
 
 .guest-companions {
   text-align: center;
+}
+
+.guest-link {
+  text-align: center;
+}
+
+.copy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #1e40af;
+  border: 1px solid #93c5fd;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+  background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%);
+  border-color: #60a5fa;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
+}
+
+.copy-button:active {
+  transform: translateY(0);
 }
 
 .companions-count {
